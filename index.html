@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Self-driving car, no libraries</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="panel" aria-label="Simulation controls">
+      <header class="masthead">
+        <h1>Self-driving car</h1>
+        <p>Cars teach themselves to drive through traffic with a neural network and evolution. Plain JavaScript, no libraries.</p>
+      </header>
+
+      <section class="sign" aria-label="Live readouts">
+        <div class="sign-face">
+          <dl class="readouts">
+            <div><dt>Generation</dt><dd id="hudGen">1</dd></div>
+            <div><dt>Alive</dt><dd id="hudAlive">0</dd></div>
+            <div><dt>Best distance</dt><dd id="hudBest">0 px</dd></div>
+            <div><dt>Cars passed</dt><dd id="hudPassed">0</dd></div>
+            <div><dt>FPS</dt><dd id="hudFps">0</dd></div>
+          </dl>
+          <p class="sign-foot"><span id="hudRecord">Record: none yet</span><span id="hudLast">Generation 1 is under way</span></p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="Mode">
+        <div class="segmented">
+          <button type="button" id="btnTrain" aria-pressed="true">Train</button>
+          <button type="button" id="btnDrive" aria-pressed="false">Drive</button>
+        </div>
+      </section>
+
+      <section class="group" aria-label="Run controls">
+        <div class="buttons">
+          <button type="button" id="btnPause">Pause</button>
+          <button type="button" id="btnReset">Reset</button>
+          <button type="button" id="btnNext">Next generation</button>
+        </div>
+        <div class="segmented" id="speedGroup" role="group" aria-label="Simulation speed">
+          <button type="button" data-speed="1" aria-pressed="true">1&times;</button>
+          <button type="button" data-speed="2" aria-pressed="false">2&times;</button>
+          <button type="button" data-speed="5" aria-pressed="false">5&times;</button>
+        </div>
+      </section>
+
+      <section class="group" aria-label="Evolution settings">
+        <label class="field field-inline" for="inputPopulation">
+          <span class="field-label">Cars per generation</span>
+          <input type="number" id="inputPopulation" min="1" max="1000" step="1" value="200">
+        </label>
+        <label class="field" for="inputMutation">
+          <span class="field-label">Mutation <output id="mutationValue" for="inputMutation">0.25</output></span>
+          <input type="range" id="inputMutation" min="0" max="1" step="0.01" value="0.25">
+        </label>
+        <p class="hint">Both apply from the next generation.</p>
+      </section>
+
+      <section class="group" aria-label="Best brain">
+        <div class="buttons">
+          <button type="button" id="btnSave">Save best brain</button>
+          <button type="button" id="btnDiscard">Discard saved brain</button>
+        </div>
+        <p class="hint" id="savedInfo">Nothing saved yet</p>
+      </section>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <section class="keys" aria-label="Keyboard shortcuts">
+        <p><kbd>&uarr;</kbd><kbd>&larr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to drive in Drive mode</p>
+        <p><kbd>P</kbd> pause, <kbd>R</kbd> reset, <kbd>N</kbd> next generation</p>
+      </section>
+    </aside>
+
+    <main class="stage road-stage" id="roadStage">
+      <canvas id="roadCanvas" aria-label="The road, the traffic and the cars"></canvas>
+    </main>
+
+    <div class="stage net-stage" id="netStage">
+      <canvas id="networkCanvas" aria-label="Neural network of the leading car"></canvas>
+    </div>
+  </div>
+
+  <script src="src/geometry.js"></script>
+  <script src="src/rng.js"></script>
+  <script src="src/controls.js"></script>
+  <script src="src/sensor.js"></script>
+  <script src="src/car.js"></script>
+  <script src="src/road.js"></script>
+  <script src="src/traffic.js"></script>
+  <script src="src/network.js"></script>
+  <script src="src/visualizer.js"></script>
+  <script src="src/trainer.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>

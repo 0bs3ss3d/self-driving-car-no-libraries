@@ -1,0 +1,12 @@
+# Local push helper, kept out of the repository
+PUSH.txt
+
+# Operating system and editor clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.log
+node_modules/
